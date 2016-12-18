@@ -12,7 +12,7 @@ import ru.innopolis.uni.course3.resource.Resource;
 import java.util.List;
 
 /**
- *
+ *  Используется для создания потока подсчета количество вхождений слов в текст ресурса
  */
 public class ProcessThread extends Thread {
 
@@ -51,11 +51,8 @@ public class ProcessThread extends Thread {
                 }
             }
         } catch (InvalidResourceException exception) {
-            logger.warn("The application have interrupted." + "\n" + "The text of resource " + this.resource.getResourceLine() + " text contains invalid characters");
+            logger.warn("The application have interrupted." + "\n" + "The text of resource " + this.resource.getResourceLine() + " contains invalid characters");
             DTData.isShutDown = true;
-            synchronized (DTData.MAP) {
-                DTData.MAP.clear();
-            }
         }
     }
 

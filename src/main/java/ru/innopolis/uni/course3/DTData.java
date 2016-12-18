@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- *
+ *  Используется для доступа к константам и общим разделяемым ресурсам.
  */
 public class DTData {
 

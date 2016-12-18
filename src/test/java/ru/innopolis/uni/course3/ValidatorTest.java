@@ -37,7 +37,7 @@ public class ValidatorTest {
 
     @Test
     public void testCyrillicLettersAndDigitsAndPunctuationMarks()  {
-        boolean result = validator.validateText("Ёкатер1нб'ургЪ");
+        boolean result = validator.validateText("Ёкатер1нб'ргЪ");
         logger.info("Test of cyrillic letters with digits and punctuation mark have passed. Result is " + result + " ; expected is true");
         assertTrue("Text with valid characters isn't validated", result);
     }

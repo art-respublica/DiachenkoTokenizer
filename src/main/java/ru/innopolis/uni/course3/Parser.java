@@ -17,10 +17,10 @@ public class Parser {
     private static Logger logger = LoggerFactory.getLogger(Parser.class);
 
     /**
-     * Используется для получения текста ресурса
+     * Получает текст ресурса
      * @param resource      объект-ресурс, текст которого читается
-     * @param validator     валидатор, который проверяет отсутствие некорректных символов в тексте ресурса
-     * @return String        текст ресурса
+     * @param validator     валидатор, который проверяет отсутствие недопустимых символов в тексте ресурса
+     * @return String       текст ресурса
      */
     public String getResourceText(Resource resource, Validator validator) throws InvalidResourceException {
 
@@ -43,7 +43,7 @@ public class Parser {
             try {
                 is.close();
                 reader.close();
-            } catch (IOException exception) {
+            } catch (Exception exception) {
                 logger.warn("InputStream and Reader didn't close");
             }
         }
@@ -53,8 +53,8 @@ public class Parser {
     /**
      * Опеределяет тип ресурса по адресной строке и возвращает объект-ресурс соответствующего типа.
      * @param addressLine   адресная строка, соответствующая ресурсу. Ожидается в формате //protocol://host:port/resource,
-     *                    тип ресурса определеяется по protocol. Если текст не соотвествет формату,
-     *                    строка считается адресом к файлу и определяет тип ресурса - файл.
+     *                          тип ресурса определеяется по protocol. Если текст не соотвествет формату,
+     *                          строка считается адресом к файлу и определяет тип ресурса - файл.
      * @return Resource     объект-ресурс, соответсвующий входящей строке
      */
     public Resource getResourceByAddressLine(String addressLine ) throws InvalidResourceException {

@@ -3,7 +3,7 @@ package ru.innopolis.uni.course3.resource;
 import java.io.InputStream;
 
 /**
- *
+ *  Родительский класс для классов-ресурсов
  */
 abstract public class Resource {
 

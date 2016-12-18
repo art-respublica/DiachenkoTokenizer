@@ -7,7 +7,7 @@ import ru.innopolis.uni.course3.DTData;
 import java.util.Map;
 
 /**
- *
+ *  Используется для создания потока вывода итоговой информации. Является потоком-демоном.
  */
 public class ReportThread extends Thread {
 

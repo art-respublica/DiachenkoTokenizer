@@ -9,7 +9,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- *
+ *  Класс-ресурс, соответствующий гиперссылкам
  */
 public class URLResource extends Resource{
 
@@ -26,9 +26,9 @@ public class URLResource extends Resource{
             URL url = new URL(resourceLine);
             is = url.openStream();
         } catch (MalformedURLException e) {
-            logger.warn("MalformedURLException " + resourceLine);
+            logger.warn("MalformedURLException " + getResourceLine());
         } catch (IOException e) {
-            logger.warn("It's impossible to get input stream for " + resourceLine);
+            logger.warn("It's impossible to get input stream for " + getResourceLine());
         }
         return is;
     }

@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 
 /**
- *
+ *  Класс-ресурс, соответствующий файлам
  */
 public class FileResource extends Resource {
 
@@ -23,7 +23,7 @@ public class FileResource extends Resource {
             // учесть кодировку текста
             is = new FileInputStream(resourceLine);
         } catch (FileNotFoundException e) {
-            logger.warn("File is not found at the address " + resourceLine);
+            logger.warn("File is not found at the address " + getResourceLine());
         }
         return is;
     }

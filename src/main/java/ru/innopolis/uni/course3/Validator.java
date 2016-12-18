@@ -14,9 +14,10 @@ public class Validator {
     }
 
     /**
-     *  Проверяет текст на соответствие недопустимыхх символов. Если таки
+     *  Проверяет текст на соответствие заданному шаблону и отсутствие недопустимых символов.
      *  @param  text       проверяемый текст
-     *  @return boolean    список токенов
+     *  @return boolean    истина - если недопустимые символы отсутствуют,
+     *                     ложь в противоположном случае
      */
     public boolean validateText(String text)  {
         Pattern pattern = Pattern.compile(validCharactersRegExp, Pattern.CASE_INSENSITIVE);
