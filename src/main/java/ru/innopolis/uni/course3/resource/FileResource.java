@@ -13,7 +13,7 @@ public class FileResource extends Resource {
     private static Logger logger = LoggerFactory.getLogger(FileResource.class);
 
     public FileResource(String resourceLine) {
-        this.resourceLine = resourceLine;
+        super(resourceLine);
     }
 
     @Override

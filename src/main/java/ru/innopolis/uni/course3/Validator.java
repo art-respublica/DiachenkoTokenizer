@@ -1,30 +1,25 @@
 package ru.innopolis.uni.course3;
 
-import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
 /**
- *
+ *  Исользуется для проверки текстов на наличие некорректных символов
  */
 public class Validator {
 
-    private String correctChars;
+    private String validCharactersRegExp;
 
-    public Validator(String correctChars) {
-        this.correctChars = correctChars;
+    public Validator(String validCharacters) {
+        this.validCharactersRegExp = "[" + validCharacters + "]*";
     }
 
+    /**
+     *  Проверяет текст на соответствие недопустимыхх символов. Если таки
+     *  @param  text       проверяемый текст
+     *  @return boolean    список токенов
+     */
     public boolean validateText(String text)  {
-
-        String regexp = "[" + correctChars + "]*";
-        Pattern pattern = Pattern.compile(regexp, Pattern.CASE_INSENSITIVE);
-        StringTokenizer tokenizer = new StringTokenizer(text);
-        while(tokenizer.hasMoreElements()) {
-            String word = tokenizer.nextToken();
-            if (!pattern.matcher(word).matches()) {
-                return false;
-            }
-        }
-        return true;
+        Pattern pattern = Pattern.compile(validCharactersRegExp, Pattern.CASE_INSENSITIVE);
+        return pattern.matcher(text).matches();
     }
 }

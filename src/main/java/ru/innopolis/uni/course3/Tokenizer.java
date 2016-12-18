@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 /**
- *
+ *  Используется для разделения текста на токены, используя стандартные разделители
  */
 public class Tokenizer {
 
@@ -18,15 +18,20 @@ public class Tokenizer {
     }
 
     public Tokenizer(String excludedCharacters) {
-        this.excludedCharactersRegExp = "[" + excludedCharacters + "]*";
-        this.isCleanedUp = !"".equals(this.excludedCharactersRegExp);
+        this.excludedCharactersRegExp = "[" + (excludedCharacters != null ? excludedCharacters : "") + "]*";
+        this.isCleanedUp = excludedCharacters != null && !excludedCharacters.trim().isEmpty();
     }
 
+    /**
+     *  Разделяет текст на токены, используя стандартные разделители
+     *  @param  text            раздяляемый текст
+     *  @return List<String>    список токенов
+     */
     public List<String> tokenizeText(String text) {
 
         List<String> tokensList = new ArrayList<>();
 
-        // split text into tokens, standard delimiters is: white space, \t, \n, \r
+        // split text into tokens using standard delimiters, which are \f, \t, \n, \r
         StringTokenizer tokenizer = new StringTokenizer(text);
 
         while(tokenizer.hasMoreElements()) {
@@ -34,7 +39,7 @@ public class Tokenizer {
             if(isCleanedUp) {
                 word = word.replaceAll(excludedCharactersRegExp, "");
             }
-            if("".equals(word)) continue;
+            if(word.isEmpty()) continue;
             tokensList.add(word);
         }
         return tokensList;

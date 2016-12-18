@@ -22,7 +22,7 @@ public class TokenizerTest {
 
     @BeforeClass
     public static void beforeTests() {
-        TokenizerTest.excludedCharacters = Main.DIGITS + Main.PUNCTUATION_MARKS;
+        TokenizerTest.excludedCharacters = DTData.EXCLUDED_CHARACTERS;
     }
 
     @Before
@@ -32,7 +32,8 @@ public class TokenizerTest {
 
     @Test
     public void testTokenizeText()  {
-        List<String> result = tokenizer.tokenizeText("Компанией «Сбербанк-Технологии» проводится конкурсный отбор");
+        String resourceText = "Компанией «Сбербанк-Технологии» проводится конкурсный отбор";
+        List<String> result = tokenizer.tokenizeText(resourceText);
         Object[] example = {"Компанией", "СбербанкТехнологии", "проводится", "конкурсный", "отбор"};
         logger.info("Tokenizer test have passed. Size of result list is  " + result.size() + " ; expected 5");
         assertArrayEquals(result.toArray(), example);

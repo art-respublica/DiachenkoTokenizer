@@ -2,6 +2,7 @@ package ru.innopolis.uni.course3.thread;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.innopolis.uni.course3.DTData;
 
 import java.util.Map;
 
@@ -12,32 +13,29 @@ public class ReportThread extends Thread {
 
     private static Logger logger = LoggerFactory.getLogger(ReportThread.class);
 
-    private final Map<String, Integer> map;
-
-    public ReportThread(Map<String, Integer> map) {
+    public ReportThread() {
         setDaemon(true);
-        this.map = map;
     }
 
     @Override
     public void run() {
         logger.info("Report thread have started");
 
-        while(!Thread.currentThread().isInterrupted()) {
+        while(!DTData.isShutDown) {
 
             StringBuilder result = new StringBuilder();
-            synchronized (map) {
-                if (map.size() == 0) {
+            synchronized (DTData.MAP) {
+                if (DTData.MAP.size() == 0) {
                     continue;
                 }
-                for(Map.Entry<String, Integer> entry: map.entrySet()) {
+                for(Map.Entry<String, Integer> entry: DTData.MAP.entrySet()) {
                     result.append(entry.getKey())
                             .append("   ")
                             .append(entry.getValue())
                             .append("\n");
                 }
             }
-            if(!"".equals(result)) {
+            if(!result.toString().isEmpty()) {
                 System.out.println(result);
             }
         }

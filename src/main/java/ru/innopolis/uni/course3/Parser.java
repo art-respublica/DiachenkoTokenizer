@@ -10,20 +10,25 @@ import ru.innopolis.uni.course3.resource.URLResource;
 import java.io.*;
 
 /**
- *
+ * Используется для разбора адресной строки ресурса и получения текста по ней.
  */
 public class Parser {
 
     private static Logger logger = LoggerFactory.getLogger(Parser.class);
 
-    public String getResourceText(Resource resource) throws InvalidResourceException {
+    /**
+     * Используется для получения текста ресурса
+     * @param resource      объект-ресурс, текст которого читается
+     * @param validator     валидатор, который проверяет отсутствие некорректных символов в тексте ресурса
+     * @return String        текст ресурса
+     */
+    public String getResourceText(Resource resource, Validator validator) throws InvalidResourceException {
 
         String resourceText = "";
-        String resourceLine = "";
-        Validator validator = new Validator(Main.VALID_CHARACTERS);
-        InputStream is      = resource.getInputStream();
+        InputStream is = resource.getInputStream();
         BufferedReader reader = null;
         try {
+            String resourceLine = "";
             reader = new BufferedReader(new InputStreamReader(is));
             while (reader.ready()) {
                 resourceLine = reader.readLine();
@@ -45,6 +50,13 @@ public class Parser {
         return resourceText;
     }
 
+    /**
+     * Опеределяет тип ресурса по адресной строке и возвращает объект-ресурс соответствующего типа.
+     * @param addressLine   адресная строка, соответствующая ресурсу. Ожидается в формате //protocol://host:port/resource,
+     *                    тип ресурса определеяется по protocol. Если текст не соотвествет формату,
+     *                    строка считается адресом к файлу и определяет тип ресурса - файл.
+     * @return Resource     объект-ресурс, соответсвующий входящей строке
+     */
     public Resource getResourceByAddressLine(String addressLine ) throws InvalidResourceException {
 
         Resource resource = null;

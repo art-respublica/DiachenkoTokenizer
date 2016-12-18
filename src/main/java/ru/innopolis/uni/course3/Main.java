@@ -5,12 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import ru.innopolis.uni.course3.exception.InvalidResourceException;
 import ru.innopolis.uni.course3.resource.Resource;
-import ru.innopolis.uni.course3.thread.ManagerThread;
 import ru.innopolis.uni.course3.thread.ProcessThread;
 import ru.innopolis.uni.course3.thread.ReportThread;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentSkipListMap;
 
 /**
  *
@@ -29,16 +27,6 @@ public class Main {
 
     private static Logger logger = LoggerFactory.getLogger(Main.class);
 
-    //"\\p{InCYRILLIC}*\\p{IsDigit}*\\p{Punct}*"
-    public final static String CYRILLIC_LETTERS = "А-Яа-яЁё";
-    public final static String DIGITS = "0-9";
-    public final static String PUNCTUATION_MARKS = "!\"#$%&'()\\*\\+,-\\./:;<=>\\?@\\[\\]\\^_`{|}~„“«»“”‘’‹›‒–—―‐-";
-    public final static String VALID_CHARACTERS = CYRILLIC_LETTERS + DIGITS + PUNCTUATION_MARKS;
-    public final static String EXCLUDED_CHARACTERS = DIGITS + PUNCTUATION_MARKS;
-
-    public final static Map<String, Integer> MAP = new TreeMap<>(); //new ConcurrentSkipListMap<>();
-    private static volatile Boolean isShutDown = false;
-
     public static void main(String[] args) {
 
         if (args.length == 0) {
@@ -50,27 +38,27 @@ public class Main {
 
         try {
             // process thread
-            List<Thread> threads = new ArrayList<>();
             for (String addressLine : args) {
                 Resource resource = parser.getResourceByAddressLine(addressLine);
                 if (resource == null) {
                     MDC.put("addressLine", addressLine);
                     throw new InvalidResourceException();
                 }
-                Thread thread = new ProcessThread(resource, MAP, isShutDown, VALID_CHARACTERS, EXCLUDED_CHARACTERS);
-                threads.add(thread);
+                Thread thread = new ProcessThread(resource,
+                        new Validator(DTData.VALID_CHARACTERS),
+                        new Tokenizer(DTData.EXCLUDED_CHARACTERS));
                 thread.start();
             }
             // report thread
-            Thread reportThread = new ReportThread(MAP);
+            Thread reportThread = new ReportThread();
             reportThread.start();
 
-            // manager thread
-            Thread managerThread = new ManagerThread(isShutDown, threads);
-            managerThread.start();
-
         } catch (InvalidResourceException exception) {
-            logger.warn("It's impossible to determine resource type or there are another validation problems");
+            logger.warn("The application have interrupted." + "\n" + "It's impossible to determine resource type.");
+            DTData.isShutDown = true;
+            synchronized (DTData.MAP) {
+                DTData.MAP.clear();
+            }
         }
 
     }
