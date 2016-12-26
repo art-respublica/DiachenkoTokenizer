@@ -21,18 +21,27 @@ public class ProcessThread extends Thread {
     private Resource resource;
     private Validator validator;
     private Tokenizer tokenizer;
+    private Parser parser;
 
-    public ProcessThread(Resource resource, Validator validator, Tokenizer tokenizer) {
+    public ProcessThread() {
+    }
+
+    public ProcessThread(Resource resource, Parser parser, Validator validator, Tokenizer tokenizer) {
         this.resource  = resource;
+        this.parser    = parser;
         this.validator = validator;
         this.tokenizer = tokenizer;
+    }
+
+    public void setResource(Resource resource) {
+        this.resource = resource;
     }
 
     @Override
     public void run() {
         logger.info("Thread for resource " + resource.getResourceLine() + " have started");
         try {
-            String resourceText = new Parser().getResourceText(resource, validator);
+            String resourceText = parser.getResourceText(resource, validator);
             if(DTData.isShutDown) {
                 logger.warn("Process thread of resource " + resource.getResourceLine() + "have broken off");
                 return;

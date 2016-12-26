@@ -15,6 +15,9 @@ public class URLResource extends Resource{
 
     private static Logger logger = LoggerFactory.getLogger(URLResource.class);
 
+    public URLResource() {
+    }
+
     public URLResource(String resourceLine) {
         super(resourceLine);
     }

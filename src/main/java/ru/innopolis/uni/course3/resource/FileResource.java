@@ -12,6 +12,9 @@ public class FileResource extends Resource {
 
     private static Logger logger = LoggerFactory.getLogger(FileResource.class);
 
+    public FileResource() {
+    }
+
     public FileResource(String resourceLine) {
         super(resourceLine);
     }

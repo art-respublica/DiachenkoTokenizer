@@ -9,6 +9,9 @@ abstract public class Resource {
 
     protected String resourceLine;
 
+    public Resource() {
+    }
+
     public Resource(String resourceLine) {
         this.resourceLine = resourceLine;
     }

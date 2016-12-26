@@ -3,6 +3,8 @@ package ru.innopolis.uni.course3;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.innopolis.uni.course3.exception.InvalidResourceException;
 import ru.innopolis.uni.course3.resource.Resource;
 import ru.innopolis.uni.course3.thread.ProcessThread;
@@ -38,8 +40,10 @@ public class Main {
             throw new IndexOutOfBoundsException("The list of resources are empty");
         }
 
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext(new String[]{"appContext.xml"});
+
         try {
-            Parser parser = new Parser();
+            Parser parser = (Parser) applicationContext.getBean("parser");
 
             // process threads
             for (String addressLine : args) {
@@ -48,9 +52,11 @@ public class Main {
                     MDC.put("addressLine", addressLine);
                     throw new InvalidResourceException();
                 }
-                Thread thread = new ProcessThread(resource,
-                        new Validator(DTData.VALID_CHARACTERS),
-                        new Tokenizer(DTData.EXCLUDED_CHARACTERS));
+//                Thread thread = new ProcessThread(resource, parser,
+//                        new Validator(DTData.VALID_CHARACTERS),
+//                        new Tokenizer(DTData.EXCLUDED_CHARACTERS));
+                ProcessThread thread = (ProcessThread) applicationContext.getBean("processThread");
+                thread.setResource(resource);
                 thread.start();
             }
 

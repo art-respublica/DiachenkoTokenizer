@@ -9,6 +9,10 @@ public class Validator {
 
     private String validCharactersRegExp;
 
+    public Validator() {
+        this.validCharactersRegExp = "[" + DTData.VALID_CHARACTERS + "]*";
+    }
+
     public Validator(String validCharacters) {
         this.validCharactersRegExp = "[" + validCharacters + "]*";
     }
