@@ -1,5 +1,7 @@
 package ru.innopolis.uni.course3;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -7,6 +9,7 @@ import java.util.StringTokenizer;
 /**
  *  Используется для разделения текста на токены, используя стандартные разделители
  */
+@Component
 public class Tokenizer {
 
     private String excludedCharactersRegExp;

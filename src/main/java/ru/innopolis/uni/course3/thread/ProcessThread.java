@@ -2,6 +2,9 @@ package ru.innopolis.uni.course3.thread;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import ru.innopolis.uni.course3.DTData;
 import ru.innopolis.uni.course3.Parser;
 import ru.innopolis.uni.course3.Tokenizer;
@@ -14,13 +17,19 @@ import java.util.List;
 /**
  *  Используется для создания потока подсчета количество вхождений слов в текст ресурса
  */
+@Component
+@Scope("prototype")
 public class ProcessThread extends Thread {
 
     private static Logger logger = LoggerFactory.getLogger(ProcessThread.class);
 
+    @Autowired
     private Resource resource;
+    @Autowired
     private Validator validator;
+    @Autowired
     private Tokenizer tokenizer;
+    @Autowired
     private Parser parser;
 
     public ProcessThread() {

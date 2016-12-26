@@ -1,10 +1,13 @@
 package ru.innopolis.uni.course3;
 
+import org.springframework.stereotype.Component;
+
 import java.util.regex.Pattern;
 
 /**
  *  Исользуется для проверки текстов на наличие некорректных символов
  */
+@Component
 public class Validator {
 
     private String validCharactersRegExp;

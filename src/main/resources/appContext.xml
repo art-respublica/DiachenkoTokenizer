@@ -7,7 +7,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean id = "processThread" class="ru.innopolis.uni.course3.thread.ProcessThread" scope="prototype">
+<!--    <bean id = "processThread" class="ru.innopolis.uni.course3.thread.ProcessThread" scope="prototype">
         <constructor-arg name="resource" ref="resource"/>
         <constructor-arg name="parser" ref="parser"/>
         <constructor-arg name="validator" ref="validator"/>
@@ -20,7 +20,9 @@
 
     <bean id = "tokenizer" class = "ru.innopolis.uni.course3.Tokenizer" scope="singleton"/>
 
-    <bean id = "parser" class = "ru.innopolis.uni.course3.Parser" scope="singleton"/>
+    <bean id = "parser" class = "ru.innopolis.uni.course3.Parser" scope="singleton"/>-->
+
+    <context:component-scan base-package="ru.innopolis.uni.course3"/>
 
 </beans>
 

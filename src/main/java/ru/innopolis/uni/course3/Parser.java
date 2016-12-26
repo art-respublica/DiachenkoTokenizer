@@ -2,6 +2,8 @@ package ru.innopolis.uni.course3;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import ru.innopolis.uni.course3.exception.InvalidResourceException;
 import ru.innopolis.uni.course3.resource.FileResource;
 import ru.innopolis.uni.course3.resource.Resource;
@@ -12,6 +14,7 @@ import java.io.*;
 /**
  * Используется для разбора адресной строки ресурса и получения текста по ней.
  */
+@Component
 public class Parser {
 
     private static Logger logger = LoggerFactory.getLogger(Parser.class);

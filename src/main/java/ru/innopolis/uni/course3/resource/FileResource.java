@@ -2,12 +2,14 @@ package ru.innopolis.uni.course3.resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 
 /**
  *  Класс-ресурс, соответствующий файлам
  */
+@Component
 public class FileResource extends Resource {
 
     private static Logger logger = LoggerFactory.getLogger(FileResource.class);
