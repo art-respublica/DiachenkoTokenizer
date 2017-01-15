@@ -16,8 +16,6 @@ public class Tokenizer {
     private boolean isCleanedUp;
 
     public Tokenizer() {
-//        this.excludedCharactersRegExp = null;
-//        this.isCleanedUp = false;
         this.excludedCharactersRegExp = "[" + DTData.EXCLUDED_CHARACTERS + "]*";
         this.isCleanedUp = true;
     }

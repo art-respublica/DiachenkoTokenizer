@@ -38,6 +38,9 @@ public class ReportThread extends Thread {
             if(!result.toString().isEmpty()) {
                 System.out.println(result);
             }
+            if(DTData.TotalSum != 0) {
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!! Total sum is: " + DTData.TotalSum);
+            }
         }
     }
 }

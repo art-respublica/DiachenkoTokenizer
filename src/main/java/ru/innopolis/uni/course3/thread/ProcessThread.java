@@ -12,7 +12,9 @@ import ru.innopolis.uni.course3.Validator;
 import ru.innopolis.uni.course3.exception.InvalidResourceException;
 import ru.innopolis.uni.course3.resource.Resource;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *  Используется для создания потока подсчета количество вхождений слов в текст ресурса
@@ -56,15 +58,25 @@ public class ProcessThread extends Thread {
                 return;
             }
             if(validator.validateText(resourceText)) {
-                List<String> wordList = tokenizer.tokenizeText(resourceText);
-                for (String word : wordList) {
-                    if (DTData.isShutDown) {
-                        logger.warn("Process thread of resource " + resource.getResourceLine() +  "have broken off");
-                        break;
-                    }
-                    synchronized (DTData.MAP) {
-                        Integer quantity = DTData.MAP.containsKey(word) ? DTData.MAP.get(word) + 1 : 1;
-                        DTData.MAP.put(word, quantity);
+                if(validator.validateTextForNumbers(resourceText))  {
+                    // в тексте ресурса только числа, считаем их сумму и добавляем к общей сумме
+                    List<String> list = Arrays.asList(resourceText.split(DTData.WHITESPACES));
+                    Optional<Integer> result = list.stream()
+                            .map(s -> Integer.parseInt(s))
+                            .filter(i -> i > 0 && i % 2 == 0)
+                            .reduce((i1, i2) -> i1 + i2);
+                    DTData.TotalSum += result.get();
+                } else {  // разбиваем текст на слова и добавляем их в карту
+                    List<String> wordList = tokenizer.tokenizeText(resourceText);
+                    for (String word : wordList) {
+                        if (DTData.isShutDown) {
+                            logger.warn("Process thread of resource " + resource.getResourceLine() + "have broken off");
+                            break;
+                        }
+                        synchronized (DTData.MAP) {
+                            Integer quantity = DTData.MAP.containsKey(word) ? DTData.MAP.get(word) + 1 : 1;
+                            DTData.MAP.put(word, quantity);
+                        }
                     }
                 }
             }

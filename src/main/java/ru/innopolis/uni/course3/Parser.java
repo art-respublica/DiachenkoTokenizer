@@ -2,7 +2,6 @@ package ru.innopolis.uni.course3;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.innopolis.uni.course3.exception.InvalidResourceException;
 import ru.innopolis.uni.course3.resource.FileResource;

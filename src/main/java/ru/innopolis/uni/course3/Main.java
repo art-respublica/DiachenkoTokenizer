@@ -20,6 +20,14 @@ import ru.innopolis.uni.course3.thread.ReportThread;
  *  знаки препинания и цифры в отчет не входят. Все ошибки должны быть корректно обработаны,
  *  все API покрыто модульными тестами
  *
+ *  Расширение:
+ *  Необходимо разработать программу, которая получает на вход список ресурсов,
+ *  содержащих набор чисел и считает сумму всех положительных четных.
+ *  Каждый ресурс должен быть обработан в отдельном потоке, набор должен содержать лишь числа,
+ *  унарный оператор "-" и пробелы.
+ *  Общая сумма должна отображаться на экране и изменяться в режиме реального времени.
+ *  Запуск потоков реализовать через ссылки на методы, итоговый подсчет суммы через stream API
+ *
  *  Входящий аргумент args содержит массив адресных строк ресурсов, например
  *  {"D:\\Temp\\Examples\\TextForTokenizer1.txt",
  *   "D:\\Temp\\Examples\\TextForTokenizer2.txt",
@@ -52,9 +60,6 @@ public class Main {
                     MDC.put("addressLine", addressLine);
                     throw new InvalidResourceException();
                 }
-//                Thread thread = new ProcessThread(resource, parser,
-//                        new Validator(DTData.VALID_CHARACTERS),
-//                        new Tokenizer(DTData.EXCLUDED_CHARACTERS));
                 ProcessThread thread = (ProcessThread) applicationContext.getBean("processThread");
                 thread.setResource(resource);
                 thread.start();
